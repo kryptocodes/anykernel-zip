@@ -1,7 +1,6 @@
 #!/sbin/sh
 # AnyKernel2 Backend
 # osm0sis @ xda-developers
-
 OUTFD=/proc/self/fd/$2;
 ZIP="$3";
 DIR=`dirname "$ZIP"`;
@@ -32,6 +31,19 @@ fi;
 
 show_progress 1.34 4;
 ui_print " ";
+ui_print "***************************************";
+ui_print "*           _       _                 *";
+ui_print "*          /_\     |_)                *";
+ui_print "*         /   \LL  | \OUNDER          *";
+ui_print "*          _  _   _   _ _____         *";
+ui_print "*         |_)|_  /_\ (_   |           *";
+ui_print "*         |_)|_ /   \ _)  |           *";
+ui_print "*        a.k.a AR_Beast Kernel        *";
+ui_print "*             _       __              *";
+ui_print "*            |_) __  |__              *";
+ui_print "*            | \     |__|             *";
+ui_print "*                                     *";
+ui_print "***************************************";
 cleanup;
 mkdir -p /tmp/anykernel/bin;
 cd /tmp/anykernel;
@@ -41,32 +53,29 @@ if [ $? != 0 -o -z "$(ls /tmp/anykernel/tools)" ]; then
 fi;
 chmod -R 755 /tmp/anykernel/tools /tmp/anykernel/bin;
 bb=/tmp/anykernel/tools/busybox;
-
-ui_print "$(file_getprop /tmp/anykernel/anykernel.sh kernel.string)";
-ui_print " ";
-ui_print "AnyKernel2 by osm0sis @ xda-developers";
-ui_print " ";
+ui_print "*AnyKernel2 by osm0sis @ xda-developers";
 umount /system;
 mount -o ro -t auto /system;
 mount /data;
 test -f /system/system/build.prop && root=/system;
 
 if [ "$(file_getprop /tmp/anykernel/anykernel.sh do.devicecheck)" == 1 ]; then
-  ui_print "Checking device...";
+  ui_print "*Verifying Device";
   for i in 1 2 3 4 5; do
     testname="$(file_getprop /tmp/anykernel/anykernel.sh device.name$i)";
     if [ "$(getprop ro.product.device)" == "$testname" -o "$(getprop ro.build.product)" == "$testname" ]; then
-      ui_print "$testname";
+      ui_print "*It's $testname";
       match=1;
     fi;
   done;
-  ui_print " ";
   if [ "$match" != 1 ]; then
     abort "Unsupported device. Aborting...";
   fi;
 fi;
 
+ui_print "***************************************";
 ui_print "Installing kernel...";
+
 for i in $($bb --list); do
   $bb ln -s $bb /tmp/anykernel/bin/$i;
 done;
@@ -79,10 +88,9 @@ if [ $? != "0" ]; then
 fi;
 
 if [ "$(file_getprop /tmp/anykernel/anykernel.sh do.modules)" == 1 ]; then
-  ui_print " ";
-  ui_print "Pushing modules...";
   mount -o rw,remount -t auto /system;
   cp -rf /tmp/anykernel/modules/* $root/system/lib/modules/;
+  ui_print "Pushing modules...";
   set_perm_recursive 0 0 0755 0644 $root/system/lib/modules;
   mount -o ro,remount -t auto /system;
 fi;
@@ -93,5 +101,8 @@ fi;
 
 umount /system;
 umount /data;
-ui_print " ";
-ui_print "Done!";
+ui_print "* Done!";
+ui_print "***************************************";
+ui_print "*           |)E\/EL0PE|) BY           *";
+ui_print "*           *AYUSH RATHORE*           *";
+ui_print "***************************************";
