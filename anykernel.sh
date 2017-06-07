@@ -34,6 +34,15 @@ chmod 644 $ramdisk/init.spectrum.sh
 ## AnyKernel install
 dump_boot;
 
+#Add Spectrum Profile
+ ui_print "Pushing Spectrum Profiles...";
+found=$(find init.rc -type f | xargs grep -oh "import /init.spectrum.rc");
+if [ "$found" != 'import /init.spectrum.rc' ]; then
+	#append the new lines for this option at the bottom
+        echo "" >> init.rc
+	echo "import /init.spectrum.rc" >> init.rc
+fi
+
 write_boot;
 
 ## end install
