@@ -91,7 +91,12 @@ if [ "$(file_getprop /tmp/anykernel/anykernel.sh do.modules)" == 1 ]; then
   mount -o rw,remount -t auto /system;
   cp -rf /tmp/anykernel/modules/* $root/system/lib/modules/;
   ui_print "Pushing modules...";
+  cp -rf /tmp/anykernel/app/* $root/system/app/;
   set_perm_recursive 0 0 0755 0644 $root/system/lib/modules;
+  ui_print "Removing previous kernel's leftovers...";
+  rm -rf $root/system/etc/init.d/Velocity-Core_Settings;
+  rm -rf $root/system/etc/init.d/reloaded;
+  rm -rf $root/system/etc/init.d/Kerenltweaks;
   mount -o ro,remount -t auto /system;
 fi;
 
