@@ -8,10 +8,10 @@ do.devicecheck=1
 do.modules=1
 do.cleanup=1
 do.cleanuponabort=0
-device.name1=YUREKA
-device.name2=YU5510
-device.name3=A05510
-device.name4=tomato
+device.name1=YUPHORIA
+device.name2=YU5010
+device.name3=lettuce
+device.name4=
 device.name5=
 } # end properties
 
