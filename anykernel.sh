@@ -31,6 +31,15 @@ chmod -R 755 $ramdisk
 chmod 644 $ramdisk/init.spectrum.rc
 chmod 644 $ramdisk/init.spectrum.sh
 
+## Alert of unsupported Android version
+android_ver=$(mount /system; grep "^ro.build.version.release" /system/build.prop | cut -d= -f2; umount /system);
+case "$android_ver" in
+  "5.0"|"5.1.1") compatibility_string="Your version is unsupported, Your device will not boot!";;
+  "6.0"|"6.0.1"|"7.0"|"7.1"|"7.1.1"|"7.1.2") compatibility_string="Your version is supported!";;
+esac;
+rom=$(mount /system; grep "^ro.modversion" /system/build.prop | cut -d= -f2; umount /system);
+ui_print "Running $rom Android $android_ver, $compatibility_string";
+
 ## AnyKernel install
 dump_boot;
 
