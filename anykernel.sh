@@ -51,7 +51,8 @@ if [ "$found" != 'import /init.spectrum.rc' ]; then
         echo "" >> init.rc
 	echo "import /init.spectrum.rc" >> init.rc
 fi
-
+ui_print "***************************************";
+ui_print "Installing kernel...";
 write_boot;
 
 ## end install
