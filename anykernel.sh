@@ -5,13 +5,13 @@
 # begin properties
 properties() {
 do.devicecheck=1
-do.modules=1
+do.modules=0
 do.cleanup=1
 do.cleanuponabort=0
-device.name1=YUREKA
-device.name2=YU5510
-device.name3=A05510
-device.name4=tomato
+device.name1=z2_plus
+device.name2=Z2_Plus
+device.name3=z2
+device.name4=Z2
 device.name5=
 } # end properties
 
@@ -37,7 +37,7 @@ chown -R root:root $ramdisk/*;
 android_ver=$(mount /system; grep "^ro.build.version.release" /system/build.prop | cut -d= -f2; umount /system);
 case "$android_ver" in
   "5.0"|"5.1.1"|"6.0"|"6.0.1"|"7.0"|"7.1"|"7.1.1"|"7.1.2") compatibility_string="Your version is unsupported, Your device will not boot!";;
-  "8.0.0"|"8.0"|"8") compatibility_string="Your version is supported!";;
+  "8.0.0"|"8.0"|"8"|"8.1.0") compatibility_string="Your version is supported!";;
 esac;
 rom=$(mount /system; grep "^ro.modversion" /system/build.prop | cut -d= -f2; umount /system);
 ui_print "***************************************";
